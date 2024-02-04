@@ -5,7 +5,9 @@
     "node": ">=20.0.0"
   },
   "type": "module",
-  "scripts": {},
+  "scripts": {
+    "start": "node index.js"
+  },
   "author": "olitera",
   "license": "ISC"
   }
