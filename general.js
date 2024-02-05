@@ -3,6 +3,7 @@ import { displayList, goToDir, up } from "./navigation.js";
 import { displayCurDir } from "./operation.js";
 import { createFile, readFile, renameFile, deleteFile, copyFile, moveFile } from "./basic.js";
 import { compress, decompress } from "./de-compress.js";
+import { calculateHash } from "./hash.js";
 
 let username = process.argv.find((el) => el.split('=')[0] === '--username')?.split('=')[1];
 
@@ -41,12 +42,14 @@ process.stdin.on('data', (chunk) => {
   if (chunk.toString().slice(0,-1).match(/rm .*/)) {
     deleteFile(chunk.toString().slice(3,-1))
   }
+  if (chunk.toString().slice(0,-1).match(/hash .*/)) {
+    calculateHash(chunk.toString().slice(5,-1))
+  }
   if (chunk.toString().slice(0,-1).match(/compress .*/)) {
     compress(chunk.toString().slice(9,-1))
   }
   if (chunk.toString().slice(0,-1).match(/decompress .*/)) {
     decompress(chunk.toString().slice(11,-1))
   }
-
   displayCurDir();
 })
