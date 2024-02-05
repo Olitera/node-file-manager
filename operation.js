@@ -1,7 +1,7 @@
 import { cwd, chdir } from 'node:process';
 import os from 'node:os'
 
-function displayCurDir() {
+export function displayCurDir() {
   console.log(`You are currently in ${cwd()}`);
 }
 
@@ -12,7 +12,13 @@ try {
   console.error(`chdir: ${err}`);
 }
 
+export function displayInvalidInputMes() {
+  console.log('Invalid input');
+}
 
+function displayOperationFailedMes() {
+  console.log('Operation failed');
+}
 
 
 
