@@ -4,6 +4,7 @@ import { displayCurDir } from "./operation.js";
 import { createFile, readFile, renameFile, deleteFile, copyFile, moveFile } from "./basic.js";
 import { compress, decompress } from "./de-compress.js";
 import { calculateHash } from "./hash.js";
+import { getArchitecture, getCpus, getEOL, getHomeDir, getUserName } from "./system-info.js";
 
 let username = process.argv.find((el) => el.split('=')[0] === '--username')?.split('=')[1];
 
@@ -40,16 +41,31 @@ process.stdin.on('data', (chunk) => {
     moveFile(chunk.toString().slice(3,-1));
   }
   if (chunk.toString().slice(0,-1).match(/rm .*/)) {
-    deleteFile(chunk.toString().slice(3,-1))
+    deleteFile(chunk.toString().slice(3,-1));
+  }
+  if (chunk.toString().slice(0,-1) === 'os --EOL') {
+    getEOL();
+  }
+  if (chunk.toString().slice(0,-1) === 'os --cpus') {
+    getCpus();
+  }
+  if (chunk.toString().slice(0,-1) === 'os --homedir') {
+    getHomeDir();
+  }
+  if (chunk.toString().slice(0,-1) === 'os --username') {
+    getUserName();
+  }
+  if (chunk.toString().slice(0,-1) === 'os --architecture') {
+    getArchitecture();
   }
   if (chunk.toString().slice(0,-1).match(/hash .*/)) {
-    calculateHash(chunk.toString().slice(5,-1))
+    calculateHash(chunk.toString().slice(5,-1));
   }
   if (chunk.toString().slice(0,-1).match(/compress .*/)) {
-    compress(chunk.toString().slice(9,-1))
+    compress(chunk.toString().slice(9,-1));
   }
   if (chunk.toString().slice(0,-1).match(/decompress .*/)) {
-    decompress(chunk.toString().slice(11,-1))
+    decompress(chunk.toString().slice(11,-1));
   }
   displayCurDir();
 })
