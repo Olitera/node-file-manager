@@ -16,7 +16,7 @@ export function displayInvalidInputMes() {
   console.log('Invalid input');
 }
 
-function displayOperationFailedMes() {
+export function displayOperationFailedMes() {
   console.log('Operation failed');
 }
 
