@@ -1,5 +1,5 @@
 import process from 'node:process';
-import { goToDir, up } from "./navigation.js";
+import { displayList, goToDir, up } from "./navigation.js";
 import { displayCurDir } from "./operation.js";
 
 let username = process.argv.find((el) => el.split('=')[0] === '--username')?.split('=')[1];
@@ -13,10 +13,13 @@ process.stdin.on('data', (chunk) => {
     process.exit();
   }
   if (chunk.toString().slice(0,-1) === 'up') {
-    up()
+    up();
   }
   if (chunk.toString().slice(0,-1).match(/cd .*/)) {
-    goToDir(chunk.toString().slice(3,-1))
+    goToDir(chunk.toString().slice(3,-1));
+  }
+  if (chunk.toString().slice(0,-1) === 'ls') {
+    displayList();
   }
   displayCurDir();
 })
